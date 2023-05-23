@@ -258,9 +258,9 @@ footer p.last-text {
 
     position:relative;
     bottom: -687px;
-    left:60px;
+    left:50px
     padding: 8px 25px;
-    margin: 15px 10px;
+    margin: 15px 15px;
   }
   
   /* Darker background on mouse-over */
