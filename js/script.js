@@ -94,23 +94,34 @@ $(document).ready(function() {
     websiteObject.shrinkViewer('.shrink-viewer');
     websiteObject.expandViewer('.close-btn');
 })();
-function download(){
- alert('WORK IN PROGRESS')   
-/*console.log(imgs);
-gete
-var x=imgs.replace(/^.*(\\|\/|\:)/, '');
-console.log(x)
-saveAs(imgs,x)*/
 
-
-}
 function Downloadpdf() {
     var imgSrc = document.getElementById('viewer');
     var styles = window.getComputedStyle(imgSrc);
     const image = styles.backgroundImage;
-    var imagesUrl = image.slice(4, -1).replace(/"/g, '');
-   console.log(imagesUrl)
-      
+    var imageUrl = image.slice(4, -1).replace(/"/g, '');
+   console.log(imageUrl)
+    function downloadImageAsPDF(imageUrl) {
+  // Create a new jsPDF instance
+  var pdf = new jsPDF();
+
+  // Fetch the image from the URL
+  fetch(imageUrl)
+    .then(response => response.blob())
+    .then(blob => {
+      // Convert the image to a data URL
+      var reader = new FileReader();
+      reader.onloadend = function() {
+        // Add the image to the PDF document
+        pdf.addImage(reader.result, 'JPEG', 10, 10, 190, 0);
+
+        // Save the PDF file
+        pdf.save('image.pdf');
+      };
+      reader.readAsDataURL(blob);
+    });
+}
+     downloadImageAsPDF(imageUrl); 
     }
       
   
