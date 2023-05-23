@@ -124,7 +124,7 @@ function Downloadpdf() {
      downloadImageAsPDF(imageUrl); 
     }
       
-  
+  // new download
     // Create a new jsPDF instance
     
 
