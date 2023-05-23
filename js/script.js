@@ -109,7 +109,7 @@ function Downloadpdf() {
     var styles = window.getComputedStyle(imgSrc);
     const image = styles.backgroundImage;
     var imageUrl = image.slice(4, -1).replace(/"/g, '');
-   console.log(imageURL)
+   console.log(imageUrl)
       
     }
       
