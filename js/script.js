@@ -102,32 +102,36 @@ function Downloadpdf() {
     var imageUrl = image.slice(4, -1).replace(/"/g, '');
    console.log(imageUrl)
    // Function to download image as PDF
-function downloadImageAsPdf(imageUrl) {
-  // Fetch the image data
-  fetch(imageUrl)
+function downloadImageAsPdf(url) {
+  fetch(url)
     .then(response => response.blob())
     .then(blob => {
-      // Convert the image data to Base64-encoded string
       const reader = new FileReader();
       reader.onloadend = function() {
         const base64Data = reader.result;
 
-        // Create a new instance of jsPDF
-        const doc = new jsPDF();
+        const img = new Image();
+        img.onload = function() {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0);
 
-        // Add the image to the PDF document
-        doc.addImage(base64Data, 'JPEG', 10, 10, 100, 100); // Adjust the coordinates and dimensions as needed
+          const imageData = canvas.toDataURL('image/jpeg'); // Convert canvas to JPEG image data
 
-        // Save the PDF document
-        doc.save('image.pdf');
+          const doc = new jsPDF();
+          doc.addImage(imageData, 'JPEG', 10, 10, 100, 100);
+          doc.save('image.pdf');
+        };
+        img.src = base64Data;
       };
-
       reader.readAsDataURL(blob);
     });
-};
-downloadImageAsPdf(imageUrl);
 }
-      
+downloadImageAsPdf(imageUrl);
+
+}
   // new download
     // Create a new jsPDF instance
     
